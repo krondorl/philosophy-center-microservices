@@ -1,0 +1,257 @@
+# ============================================================
+# Operating systems
+# ============================================================
+
+**/.DS_Store
+**/Thumbs.db
+**/Desktop.ini
+
+
+# ============================================================
+# IDEs and editors
+# ============================================================
+
+# IntelliJ IDEA
+**/.idea/
+**/*.iml
+**/*.iws
+**/*.ipr
+**/out/
+
+# Visual Studio Code
+**/.vscode/
+!**/.vscode/extensions.json
+!**/.vscode/settings.json
+!**/.vscode/tasks.json
+!**/.vscode/launch.json
+
+# Eclipse
+**/.classpath
+**/.project
+**/.settings/
+
+# Vim
+**/*.swp
+**/*.swo
+**/*~
+
+# JetBrains Fleet
+**/.fleet/
+
+
+# ============================================================
+# Environment files and secrets
+# ============================================================
+
+**/.env
+**/.env.*
+!**/.env.example
+!**/.env.template
+
+**/*.pem
+**/*.key
+**/*.p12
+**/*.pfx
+**/*.jks
+
+**/secrets/
+**/.secrets/
+
+
+# ============================================================
+# Logs and temporary files
+# ============================================================
+
+**/*.log
+**/logs/
+**/log/
+
+**/tmp/
+**/temp/
+**/.tmp/
+**/.temp/
+
+**/*.pid
+**/*.seed
+**/*.pid.lock
+
+
+# ============================================================
+# Java
+# ============================================================
+
+# Compiled files
+**/*.class
+
+# Maven
+**/target/
+**/.mvn/timing.properties
+**/.mvn/wrapper/maven-wrapper.jar
+
+# Gradle
+**/.gradle/
+**/build/
+**/gradle-app.setting
+**/gradle-app.setting
+**/.gradletasknamecache
+**/gradle/wrapper/gradle-wrapper.jar
+
+# Java package files
+**/*.jar
+**/*.war
+**/*.ear
+**/*.nar
+**/*.zip
+**/*.tar
+**/*.tar.gz
+
+# Java crash logs
+**/hs_err_pid*
+**/replay_pid*
+
+# Spring Boot
+**/spring.log
+
+# JVM tooling
+**/.attach_pid*
+**/.java-version
+
+
+# ============================================================
+# TypeScript / Node.js
+# ============================================================
+
+# Dependencies
+**/node_modules/
+node_modules/
+
+# Build outputs
+**/dist/
+**/build/
+**/lib/
+**/out/
+
+# TypeScript compiler
+**/*.tsbuildinfo
+
+# Package manager caches
+**/.npm/
+**/.yarn/cache/
+**/.yarn/unplugged/
+**/.yarn/build-state.yml
+**/.yarn/install-state.gz
+**/.pnpm-store/
+
+# Yarn classic
+**/.yarn-integrity
+
+# npm logs
+**/npm-debug.log*
+**/yarn-debug.log*
+**/yarn-error.log*
+**/pnpm-debug.log*
+**/lerna-debug.log*
+
+# Framework caches and outputs
+**/.angular/
+**/.next/
+**/.nuxt/
+**/.output/
+**/.svelte-kit/
+**/.vite/
+**/.parcel-cache/
+**/.turbo/
+**/.nx/
+**/.cache/
+
+# Testing and coverage
+**/coverage/
+**/.nyc_output/
+**/test-results/
+**/playwright-report/
+**/blob-report/
+
+# Storybook
+**/storybook-static/
+
+# Serverless and SST
+**/.serverless/
+**/.sst/
+**/.sst-artifacts/
+
+# Local databases
+**/*.sqlite
+**/*.sqlite3
+**/*.db
+**/*.db-journal
+
+# Node REPL history
+**/.node_repl_history
+
+# Optional npm cache directory
+**/.eslintcache
+**/.stylelintcache
+
+# Package archives
+**/*.tgz
+
+
+# ============================================================
+# Rust
+# ============================================================
+
+# Cargo build output
+**/target/
+target/
+
+# Rustfmt backup files
+**/*.rs.bk
+
+# Compiler and profiling outputs
+**/*.pdb
+**/*.profraw
+**/*.profdata
+
+# Cargo generated files
+**/.cargo-ok
+
+# Rust Rover
+**/.idea/
+**/*.iml
+
+
+# ============================================================
+# Test, coverage and analysis outputs
+# ============================================================
+
+**/coverage/
+**/reports/
+**/report/
+**/.scannerwork/
+**/.sonar/
+**/.jacoco/
+**/jacoco.exec
+
+
+# ============================================================
+# Docker and local infrastructure overrides
+# ============================================================
+
+**/docker-compose.override.yml
+**/compose.override.yml
+
+**/.docker/
+**/*.local.yml
+**/*.local.yaml
+
+
+# ============================================================
+# Miscellaneous generated files
+# ============================================================
+
+**/.history/
+**/.eslintcache
+**/.stylelintcache
+**/.sass-cache/
+**/.gradle/
+**/.cache/
