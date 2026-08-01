@@ -1,0 +1,79 @@
+services:
+  philosophers-db:
+    image: ${POSTGRES_IMAGE:-postgres:18.4-bookworm}
+    restart: unless-stopped
+    mem_limit: 256m
+    environment:
+      POSTGRES_DB: philosophers_dev
+      POSTGRES_USER: philosophers_app
+      POSTGRES_PASSWORD_FILE: /run/secrets/philosophers_db_password
+    secrets:
+      - philosophers_db_password
+    ports:
+      - "127.0.0.1:${PHILOSOPHERS_DB_PORT:-54321}:5432"
+    volumes:
+      - philosophers-db-data:/var/lib/postgresql
+      - ./db/init-philosophers.sql:/docker-entrypoint-initdb.d/001-init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U philosophers_app -d philosophers_dev"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+      start_period: 10s
+
+  schools-db:
+    image: ${POSTGRES_IMAGE:-postgres:18.4-bookworm}
+    restart: unless-stopped
+    mem_limit: 256m
+    environment:
+      POSTGRES_DB: schools_dev
+      POSTGRES_USER: schools_app
+      POSTGRES_PASSWORD_FILE: /run/secrets/schools_db_password
+    secrets:
+      - schools_db_password
+    ports:
+      - "127.0.0.1:${SCHOOLS_DB_PORT:-54322}:5432"
+    volumes:
+      - schools-db-data:/var/lib/postgresql
+      - ./db/init-schools.sql:/docker-entrypoint-initdb.d/001-init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U schools_app -d schools_dev"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+      start_period: 10s
+
+  quotes-db:
+    image: ${POSTGRES_IMAGE:-postgres:18.4-bookworm}
+    restart: unless-stopped
+    mem_limit: 256m
+    environment:
+      POSTGRES_DB: quotes_dev
+      POSTGRES_USER: quotes_app
+      POSTGRES_PASSWORD_FILE: /run/secrets/quotes_db_password
+    secrets:
+      - quotes_db_password
+    ports:
+      - "127.0.0.1:${QUOTES_DB_PORT:-54323}:5432"
+    volumes:
+      - quotes-db-data:/var/lib/postgresql
+      - ./db/init-quotes.sql:/docker-entrypoint-initdb.d/001-init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U quotes_app -d quotes_dev"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+      start_period: 10s
+
+secrets:
+  philosophers_db_password:
+    file: ./.secrets/philosophers-db-password.txt
+  schools_db_password:
+    file: ./.secrets/schools-db-password.txt
+  quotes_db_password:
+    file: ./.secrets/quotes-db-password.txt
+
+volumes:
+  philosophers-db-data:
+  schools-db-data:
+  quotes-db-data:
