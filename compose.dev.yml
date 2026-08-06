@@ -47,6 +47,8 @@ services:
     image: ${POSTGRES_IMAGE:-postgres:18.4-bookworm}
     restart: unless-stopped
     mem_limit: 256m
+    env_file:
+      - ./quote-service/.env
     environment:
       POSTGRES_DB: quotes_dev
       POSTGRES_USER: quotes_app
@@ -71,7 +73,7 @@ secrets:
   schools_db_password:
     file: ./.secrets/schools-db-password.txt
   quotes_db_password:
-    file: ./.secrets/quotes-db-password.txt
+    file: ./quote-service/.secrets/quotes-db-password.txt
 
 volumes:
   philosophers-db-data:
