@@ -12,10 +12,9 @@ export class QuotesRepository {
         SELECT
           id,
           philosopher_id AS "philosopherId",
-          text
+          quote_text AS "quoteText"
         FROM quotes
-        ORDER BY created_at DESC
-        LIMIT 10
+        LIMIT 20
       `,
     );
 
@@ -28,11 +27,10 @@ export class QuotesRepository {
         SELECT
           id,
           philosopher_id AS "philosopherId",
-          text
+          quote_text AS "quoteText"
         FROM quotes
         WHERE philosopher_id = $1
-        ORDER BY created_at DESC
-        LIMIT 1
+        LIMIT 10
       `,
       [philosopherId],
     );
@@ -49,7 +47,7 @@ export class QuotesRepository {
         SELECT
           id,
           philosopher_id AS "philosopherId",
-          text
+          quote_text AS "quoteText"
         FROM quotes
         ORDER BY RANDOM()
         LIMIT 1
@@ -68,7 +66,7 @@ export class QuotesRepository {
         SELECT
           id,
           philosopher_id AS "philosopherId",
-          text
+          quote_text AS "quoteText"
         FROM quotes
         WHERE id = $1
         LIMIT 1

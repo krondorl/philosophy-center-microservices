@@ -50,7 +50,7 @@ export class QuotesService {
     return {
       id: row.id,
       philosopherId: row.philosopherId,
-      text: row.text,
+      quoteText: row.quoteText,
     };
   }
 }
