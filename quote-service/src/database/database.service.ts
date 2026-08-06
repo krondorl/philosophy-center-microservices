@@ -5,13 +5,7 @@ import {
   OnModuleInit,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import {
-  Pool,
-  PoolClient,
-  PoolConfig,
-  QueryResult,
-  QueryResultRow,
-} from 'pg';
+import { Pool, PoolClient, PoolConfig, QueryResult, QueryResultRow } from 'pg';
 
 @Injectable()
 export class DatabaseService implements OnModuleInit, OnModuleDestroy {
@@ -25,9 +19,7 @@ export class DatabaseService implements OnModuleInit, OnModuleDestroy {
       ? { connectionString }
       : {
           host: this.configService.getOrThrow<string>('DATABASE_HOST'),
-          port: Number(
-            this.configService.getOrThrow<string>('DATABASE_PORT'),
-          ),
+          port: Number(this.configService.getOrThrow<string>('DATABASE_PORT')),
           database: this.configService.getOrThrow<string>('DATABASE_NAME'),
           user: this.configService.getOrThrow<string>('DATABASE_USER'),
           password: this.configService.getOrThrow<string>('DATABASE_PASSWORD'),
