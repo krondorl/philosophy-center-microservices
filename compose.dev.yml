@@ -1,21 +1,21 @@
 services:
-  philosophers-db:
+  catalog-db:
     image: ${POSTGRES_IMAGE:-postgres:18.4-bookworm}
     restart: unless-stopped
     mem_limit: 256m
     environment:
-      POSTGRES_DB: philosophers_dev
-      POSTGRES_USER: philosophers_app
-      POSTGRES_PASSWORD_FILE: /run/secrets/philosophers_db_password
+      POSTGRES_DB: catalog_dev
+      POSTGRES_USER: catalog_app
+      POSTGRES_PASSWORD_FILE: /run/secrets/catalog_db_password
     secrets:
-      - philosophers_db_password
+      - catalog_db_password
     ports:
-      - "127.0.0.1:${PHILOSOPHERS_DB_PORT:-54321}:5430"
+      - "127.0.0.1:${CATALOG_DB_PORT:-54321}:5430"
     volumes:
-      - philosophers-db-data:/var/lib/postgresql
-      - ./db/init-philosophers.sql:/docker-entrypoint-initdb.d/001-init.sql:ro
+      - catalog-db-data:/var/lib/postgresql
+      - ./db/init-catalog.sql:/docker-entrypoint-initdb.d/001-init.sql:ro
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U philosophers_app -d philosophers_dev"]
+      test: ["CMD-SHELL", "pg_isready -U catalog_app -d catalog_dev"]
       interval: 5s
       timeout: 3s
       retries: 20
@@ -70,14 +70,14 @@ services:
       start_period: 10s
 
 secrets:
-  philosophers_db_password:
-    file: ./.secrets/philosophers-db-password.txt
+  catalog_db_password:
+    file: ./catalog-service/.secrets/catalog-db-password.txt
   guide_db_password:
-    file: ./.secrets/guide-db-password.txt
+    file: ./guide-service/.secrets/guide-db-password.txt
   quotes_db_password:
     file: ./quote-service/.secrets/quotes-db-password.txt
 
 volumes:
-  philosophers-db-data:
-  schools-db-data:
+  catalog-db-data:
+  guide-db-data:
   quotes-db-data:
