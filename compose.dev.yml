@@ -10,7 +10,7 @@ services:
     secrets:
       - philosophers_db_password
     ports:
-      - "127.0.0.1:${PHILOSOPHERS_DB_PORT:-54321}:5432"
+      - "127.0.0.1:${PHILOSOPHERS_DB_PORT:-54321}:5430"
     volumes:
       - philosophers-db-data:/var/lib/postgresql
       - ./db/init-philosophers.sql:/docker-entrypoint-initdb.d/001-init.sql:ro
@@ -21,23 +21,25 @@ services:
       retries: 20
       start_period: 10s
 
-  schools-db:
+  guide-db:
     image: ${POSTGRES_IMAGE:-postgres:18.4-bookworm}
     restart: unless-stopped
     mem_limit: 256m
+    env_file:
+      - ./guide-service/.env
     environment:
-      POSTGRES_DB: schools_dev
-      POSTGRES_USER: schools_app
-      POSTGRES_PASSWORD_FILE: /run/secrets/schools_db_password
+      POSTGRES_DB: guide_dev
+      POSTGRES_USER: guide_app
+      POSTGRES_PASSWORD_FILE: /run/secrets/guide_db_password
     secrets:
-      - schools_db_password
+      - guide_db_password
     ports:
-      - "127.0.0.1:${SCHOOLS_DB_PORT:-54322}:5432"
+      - "127.0.0.1:${GUIDE_DB_PORT:-54322}:5431"
     volumes:
-      - schools-db-data:/var/lib/postgresql
-      - ./db/init-schools.sql:/docker-entrypoint-initdb.d/001-init.sql:ro
+      - guide-db-data:/var/lib/postgresql
+      - ./db/init-guide.sql:/docker-entrypoint-initdb.d/001-init.sql:ro
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U schools_app -d schools_dev"]
+      test: ["CMD-SHELL", "pg_isready -U guide_app -d guide_dev"]
       interval: 5s
       timeout: 3s
       retries: 20
@@ -70,8 +72,8 @@ services:
 secrets:
   philosophers_db_password:
     file: ./.secrets/philosophers-db-password.txt
-  schools_db_password:
-    file: ./.secrets/schools-db-password.txt
+  guide_db_password:
+    file: ./.secrets/guide-db-password.txt
   quotes_db_password:
     file: ./quote-service/.secrets/quotes-db-password.txt
 
