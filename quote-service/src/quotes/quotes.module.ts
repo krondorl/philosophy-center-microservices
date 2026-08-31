@@ -1,3 +1,11 @@
+/*!
+ * Philosophy Center Microservices
+ *
+ * Copyright (c) 2026- Adam Burucs
+ *
+ * MIT Licensed
+ */
+
 import { Module } from '@nestjs/common';
 import { DatabaseModule } from '../database/database.module';
 import { QuotesController } from './quotes.controller';

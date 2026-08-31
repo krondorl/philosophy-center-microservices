@@ -1,3 +1,11 @@
+/*!
+ * Philosophy Center Microservices
+ *
+ * Copyright (c) 2026- Adam Burucs
+ *
+ * MIT Licensed
+ */
+
 import { Controller, Get, Param, Query } from '@nestjs/common';
 import { Quote } from './quote.types';
 import { QuotesService } from './quotes.service';

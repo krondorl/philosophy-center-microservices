@@ -1,3 +1,11 @@
+/*!
+ * Philosophy Center Microservices
+ *
+ * Copyright (c) 2026- Adam Burucs
+ *
+ * MIT Licensed
+ */
+
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import request from 'supertest';

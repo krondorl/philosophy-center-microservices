@@ -1,3 +1,11 @@
+/*!
+ * Philosophy Center Microservices
+ *
+ * Copyright (c) 2026- Adam Burucs
+ *
+ * MIT Licensed
+ */
+
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Quote, QuoteRow } from './quote.types';
 import { QuotesRepository } from './quotes.repository';
