@@ -1,3 +1,11 @@
+/*!
+ * Philosophy Center Microservices
+ *
+ * Copyright (c) 2026- Adam Burucs
+ *
+ * MIT Licensed
+ */
+
 use axum::{Json, Router, extract::Path, extract::State, http::StatusCode, routing::get};
 use chrono::Utc;
 use dotenvy::dotenv;
