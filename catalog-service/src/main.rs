@@ -2,7 +2,10 @@ use axum::{Json, Router, extract::Path, extract::State, http::StatusCode, routin
 use chrono::Utc;
 use dotenvy::dotenv;
 use serde::Serialize;
-use sqlx::{FromRow, PgPool, postgres::PgPoolOptions};
+use sqlx::{
+    FromRow, PgPool,
+    postgres::{PgConnectOptions, PgPoolOptions},
+};
 use std::env;
 use tokio::net::TcpListener;
 
@@ -73,7 +76,10 @@ async fn main() {
 
     let host = env::var("DATABASE_HOST").expect("DATABASE_HOST must be set");
 
-    let port = env::var("DATABASE_PORT").expect("DATABASE_PORT must be set");
+    let port: u16 = std::env::var("DATABASE_PORT")
+        .expect("DATABASE_PORT missing")
+        .parse()
+        .expect("DATABASE_PORT must be a valid number");
 
     let database = env::var("DATABASE_NAME").expect("DATABASE_NAME must be set");
 
@@ -81,14 +87,16 @@ async fn main() {
 
     let password = env::var("DATABASE_PASSWORD").expect("DATABASE_PASSWORD must be set");
 
-    let database_url = format!(
-        "postgres://{}:{}@{}:{}/{}",
-        user, password, host, port, database
-    );
+    let options = PgConnectOptions::new()
+        .host(&host)
+        .port(port)
+        .database(&database)
+        .username(&user)
+        .password(&password);
 
     let pool = PgPoolOptions::new()
         .max_connections(5)
-        .connect(&database_url)
+        .connect_with(options)
         .await
         .expect("Could not connect to PostgreSQL");
 
