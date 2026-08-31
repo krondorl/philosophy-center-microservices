@@ -5,6 +5,30 @@ CREATE TABLE IF NOT EXISTS schools (
     description text NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS philosophers (
+    id uuid PRIMARY KEY,
+    philosopher_id text NOT NULL UNIQUE,
+    name text NOT NULL,
+    description text NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS philosopher_school (
+    philosopher_id uuid NOT NULL,
+    school_id uuid NOT NULL,
+
+    PRIMARY KEY (philosopher_id, school_id),
+
+    CONSTRAINT fk_philosopher_school_philosopher
+        FOREIGN KEY (philosopher_id)
+        REFERENCES philosophers(id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_philosopher_school_school
+        FOREIGN KEY (school_id)
+        REFERENCES schools(id)
+        ON DELETE CASCADE
+);
+
 INSERT INTO schools (id, school_id, name, description)
 SELECT *
 FROM (
@@ -42,12 +66,7 @@ WHERE NOT EXISTS (
     SELECT 1 FROM schools
 );
 
-CREATE TABLE IF NOT EXISTS philosophers (
-    id uuid PRIMARY KEY,
-    philosopher_id text NOT NULL UNIQUE,
-    name text NOT NULL,
-    description text NOT NULL
-);
+
 
 INSERT INTO philosophers (id, philosopher_id, name, description)
 SELECT *
@@ -83,3 +102,13 @@ Epictetus studied Stoic philosophy under Musonius Rufus and after manumission, h
 WHERE NOT EXISTS (
     SELECT 1 FROM philosophers
 );
+
+INSERT INTO philosopher_school (philosopher_id, school_id)
+SELECT p.id, s.id
+FROM philosophers p
+JOIN schools s ON s.school_id = 'stoicism'
+WHERE p.philosopher_id IN (
+    'marcus-aurelius',
+    'epictetus'
+)
+ON CONFLICT DO NOTHING;
